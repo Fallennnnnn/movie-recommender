@@ -128,14 +128,30 @@ Setelah melalui langkah-langkah di atas, data akan siap untuk digunakan dalam an
 ## Modeling
 Dalam tahap Modeling, akan dijelaskan dua solusi rekomendasi yang digunakan dalam sistem rekomendasi film, yaitu Content-Based Filtering dan Hybrid Recommendations.
 
+Tentu, berikut adalah perbaikan pada bagian Content-Based Filtering untuk mencakup informasi tentang algoritma yang digunakan:
+
 ### Solusi 1: Content-Based Filtering
 
-Solusi pertama adalah Content-Based Filtering, yang mengoperasikan rekomendasi berdasarkan kesamaan konten atau atribut film dengan film yang telah disukai oleh pengguna. Atribut konten yang digunakan dalam rekomendasi ini meliputi deskripsi film (Overview) dan genre film (Genres).
+Solusi pertama adalah Content-Based Filtering, yang mengoperasikan rekomendasi berdasarkan kesamaan konten atau atribut film dengan film yang telah disukai oleh pengguna. Dalam konteks ini, digunakan metode Cosine Similarity sebagai salah satu algoritma untuk Content-Based Filtering.
 
-#### Cara Kerja Content-Based Filtering:
+**Cosine Similarity** adalah metrik yang mengukur sejauh mana dua vektor mirip dalam ruang berdimensi banyak. Cara kerjanya secara umum adalah sebagai berikut:
+
+1. **Representasi Vektor**: Data atau objek diubah menjadi vektor numerik dalam ruang berdimensi banyak.
+
+2. **Pengukuran Sudut**: Cosine Similarity memeriksa sudut antara dua vektor.
+
+3. **Perhitungan Cosine Similarity**: Nilai Cosine Similarity antara dua vektor dihitung dengan membagi hasil perkalian titik antara vektor tersebut dengan hasil perkalian panjang keduanya.
+
+4. **Skala Nilai**: Hasilnya berkisar dari -1 hingga 1. Nilai yang lebih tinggi menunjukkan kesamaan yang lebih besar.
+
+5. **Penggunaan dalam Sistem Rekomendasi**: Dalam sistem rekomendasi, Cosine Similarity digunakan untuk membandingkan preferensi pengguna dengan atribut-atribut item untuk memberikan rekomendasi yang sesuai.
+
+6. **Peringkat dan Rekomendasi**: Item dengan Cosine Similarity tertinggi dibandingkan dengan preferensi pengguna, dan yang paling mirip akan diurutkan lebih tinggi dalam rekomendasi.
+#### Cara Kerja Content-Based Filtering dengan Cosine Similarity:
 - Algoritma Content-Based Filtering menganalisis deskripsi film (Overview) dan genre film (Genres) yang telah disukai oleh pengguna.
-- Selanjutnya, algoritma akan mencari film-film lain dalam dataset yang memiliki atribut konten serupa, seperti deskripsi atau genre yang mirip dengan film yang disukai oleh pengguna.
-- Berdasarkan kesamaan ini, algoritma akan memberikan rekomendasi film yang memiliki atribut konten serupa dengan film yang telah disukai pengguna.
+- Kemudian, algoritma akan mengubah deskripsi film dan genre menjadi vektor numerik, di mana setiap atribut mewakili kemunculan kata kunci atau genre tertentu dalam film.
+- Setelah vektor representasi film yang telah disukai oleh pengguna dan film yang akan direkomendasikan diperoleh, algoritma akan menghitung skor kesamaan Cosine Similarity antara vektor-vektor ini.
+- Film-film dengan skor Cosine Similarity tertinggi akan diberikan sebagai rekomendasi, karena mereka memiliki atribut konten yang mirip dengan film yang disukai oleh pengguna.
 
 #### Kelebihan Content-Based Filtering:
 - Mampu merekomendasikan film yang memiliki atribut konten serupa dengan film yang telah disukai pengguna.
@@ -145,24 +161,48 @@ Solusi pertama adalah Content-Based Filtering, yang mengoperasikan rekomendasi b
 - Cenderung membatasi variasi rekomendasi pada jenis film yang serupa dengan yang telah disukai pengguna.
 - Tidak memperhitungkan popularitas atau preferensi umum pengguna.
 
-### Solusi 2: Hybrid Recommendations
+## Solusi 2: Hybrid Recommendations
 
-Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi Content-Based Filtering dengan rekomendasi berdasarkan popularitas film. Dalam pendekatan ini, upaya dilakukan untuk memberikan rekomendasi yang lebih seimbang antara preferensi pengguna dan popularitas film.
+Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi dari Content-Based Filtering dengan rekomendasi berdasarkan popularitas film. Pendekatan ini bertujuan untuk memberikan rekomendasi yang seimbang antara preferensi individu pengguna dan popularitas film.
 
-#### Cara Kerja Hybrid Recommendations:
-- Algoritma Hybrid Recommendations menggabungkan hasil dari Content-Based Filtering dan rekomendasi berdasarkan popularitas film.
-- Rekomendasi Content-Based Filtering digunakan untuk memberikan film-film dengan atribut konten serupa dengan yang telah disukai pengguna.
-- Rekomendasi berdasarkan popularitas film ditambahkan untuk memastikan bahwa film yang populer atau tren saat itu juga mendapatkan perhatian.
-- Hasil akhir adalah rekomendasi yang lebih beragam, mencoba memenuhi preferensi individual pengguna sambil mempertimbangkan popularitas film.
+### Cara Kerja Hybrid Recommendations:
 
-#### Kelebihan Hybrid Recommendations:
-- Menggabungkan kelebihan Content-Based Filtering dan rekomendasi berdasarkan popularitas untuk memberikan rekomendasi yang lebih beragam.
-- Dapat mengatasi beberapa kelemahan dari masing-masing pendekatan.
+1. **Rekomendasi Content-Based Filtering**: 
+   - Algoritma Hybrid Recommendations pertama-tama menggunakan Content-Based Filtering. Ini berarti menganalisis deskripsi film (Overview) dan genre film (Genres) yang telah disukai oleh pengguna.
+   - Menggunakan metode seperti Cosine Similarity, algoritma mencari film-film lain dalam dataset yang memiliki atribut konten serupa, seperti deskripsi atau genre yang mirip dengan film yang disukai oleh pengguna.
+   - Film-film dengan atribut konten yang mirip dengan film yang telah disukai oleh pengguna dianggap sebagai kandidat rekomendasi.
 
-#### Kekurangan Hybrid Recommendations:
-- Memerlukan perhatian khusus dalam menggabungkan hasil dari kedua pendekatan.
+2. **Rekomendasi berdasarkan Popularitas**:
+   - Selanjutnya, algoritma melibatkan faktor popularitas dalam rekomendasi. Ini dilakukan dengan mempertimbangkan seberapa populer atau sering film-film tersebut dilihat atau dinilai oleh pengguna lain.
+   - Film-film yang memiliki peringkat atau penilaian yang tinggi, atau yang sering ditonton oleh pengguna lain, dianggap sebagai film yang populer.
 
-  
+3. **Penggabungan Rekomendasi**:
+   - Hasil dari Content-Based Filtering dan rekomendasi berdasarkan popularitas digabungkan. Film-film yang memiliki kesamaan atribut konten dengan preferensi pengguna tetapi juga memiliki popularitas yang baik diberikan sebagai rekomendasi.
+
+4. **Hasil Akhir Rekomendasi**:
+   - Hasil akhir adalah rekomendasi yang lebih beragam. Algoritma berusaha memenuhi preferensi individual pengguna sambil mempertimbangkan popularitas film yang dapat menjadi faktor menarik bagi banyak orang.
+
+**Metode Hybrid Recommendations dipilih karena:**
+
+1. **Diversifikasi Rekomendasi**: Kombinasi Content-Based Filtering dan popularitas film memberikan rekomendasi yang lebih beragam.
+
+2. **Penyesuaian Personal**: Content-Based Filtering mempertimbangkan preferensi pengguna untuk rekomendasi yang lebih sesuai.
+
+3. **Mengatasi Kelemahan**: Mengatasi kelemahan masing-masing metode, meningkatkan kualitas rekomendasi.
+
+4. **Popularitas Film**: Menambahkan popularitas film untuk menarik pengguna ke film yang populer.
+
+5. **Fleksibilitas**: Kemungkinan pengembangan lebih lanjut dan penyesuaian metode.
+
+   
+### Kelebihan Hybrid Recommendations:
+- Menggabungkan kelebihan Content-Based Filtering (kesesuaian atribut konten) dan rekomendasi berdasarkan popularitas untuk memberikan rekomendasi yang lebih beragam.
+- Dapat mengatasi beberapa kelemahan dari masing-masing pendekatan. Content-Based Filtering memberikan rekomendasi yang lebih spesifik, sementara rekomendasi berdasarkan popularitas memberikan variasi dan kemungkinan penemuan film populer.
+
+### Kekurangan Hybrid Recommendations:
+- Memerlukan perhatian khusus dalam menggabungkan hasil dari kedua pendekatan, termasuk pemilihan metode penggabungan yang tepat. Pemilihan yang baik akan memengaruhi kualitas rekomendasi.
+
+   
 ### Output: Rekomendasi Top-10
 
 Kedua solusi di atas akan menghasilkan rekomendasi top-10 film berdasarkan preferensi pengguna. Rekomendasi ini akan membantu pengguna menemukan film-film yang mungkin mereka nikmati berdasarkan kesamaan konten dan popularitas.
