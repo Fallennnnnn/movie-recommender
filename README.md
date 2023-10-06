@@ -51,17 +51,15 @@ Dengan mencapai tujuan-tujuan ini, diharapkan dapat meningkatkan pengalaman meno
 
 ### Solution Approach
 
-Dalam menghadapi pernyataan masalah yang telah dijelaskan sebelumnya, kami akan mengusulkan dua pendekatan berbeda untuk mengembangkan sistem rekomendasi film yang akurat dan relevan:
+Dalam menghadapi pernyataan masalah yang telah dijelaskan sebelumnya, akan diusulkan dua pendekatan berbeda untuk mengembangkan sistem rekomendasi film yang akurat dan relevan:
 
-#### Pendekatan 1: Collaborative Filtering
+#### Pendekatan 1: Content-Based Filtering
 
-1. **User-Based Collaborative Filtering**: Menggunakan metrik kesamaan penonton untuk merekomendasikan film berdasarkan perilaku serupa penonton.
+1. **Content-Based Recommendations**: Menganalisis fitur-fitur film (genre, aktor, sutradara, ulasan, dll.) untuk merekomendasikan film berdasarkan kesamaan atribut dengan film yang telah disukai oleh pengguna.
 
-2. **Item-Based Collaborative Filtering**: Menganalisis kesamaan antara film berdasarkan perilaku penonton yang sama.
+#### Pendekatan 2: Hybrid Recommendations
 
-#### Pendekatan 2: Content-Based Filtering
-
-Menggunakan fitur-fitur film (genre, aktor, sutradara, ulasan) dan preferensi penonton untuk merekomendasikan film yang relevan.
+2. **Hybrid Recommendations**: Menggabungkan rekomendasi berdasarkan konten (Content-Based Filtering) dengan rekomendasi berdasarkan popularitas (Popularity-Based Recommendations) untuk memberikan rekomendasi film yang seimbang antara preferensi pengguna dan popularitas film.
 
 Kombinasi kedua pendekatan ini akan membantu mengatasi ketidakpastian dalam preferensi penonton dan variabilitas dalam data film, dengan tujuan meningkatkan kepuasan penonton dan mendukung pertumbuhan industri film.
 
@@ -83,30 +81,124 @@ Variabel-variabel pada Kaggle 9000+ Movies Dataset adalah sebagai berikut:
 - Genre: Kategori yang digunakan untuk mengklasifikasikan film.
 - Poster_Url: URL poster film.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
+Berikut ini adalah Visualisasi yang dilakukan untuk mendapatkan insight dari data yang telah diperoleh
+
+1. **Distribution of Movie Ratings (Vote_Average):** Visualisasi ini mungkin dilakukan dengan membuat histogram atau diagram distribusi dari rating film (Vote_Average). Histogram ini akan memberikan gambaran tentang sebaran rating film dalam dataset. Insight yang bisa diperoleh adalah apakah mayoritas film memiliki rating yang tinggi, rendah, atau terdistribusi merata. Ini bisa memberikan gambaran awal tentang kualitas film dalam dataset.
+
+2. **Ratings vs. Popularity:** Dalam visualisasi ini, Anda mungkin akan membuat scatter plot yang membandingkan rating film dengan popularitasnya. Ini akan membantu Anda memahami apakah ada korelasi antara rating yang tinggi dan popularitas film. Misalnya, Anda mungkin menemukan bahwa film dengan rating tinggi cenderung lebih populer, atau sebaliknya. Ini bisa membantu dalam pemahaman preferensi penonton.
+
+3. **Distribution of Movie Genres:** Untuk visualisasi ini, Anda bisa membuat grafik batang atau pie chart yang menggambarkan sebaran genre film dalam dataset. Ini akan memberikan gambaran tentang genre yang paling banyak muncul dalam dataset. Mungkin Anda akan menemukan genre yang paling dominan dan genre yang jarang muncul. Ini bisa membantu Anda dalam pengelompokan dan analisis lebih lanjut berdasarkan genre.
+
+4. **Visualize the Top-Rated Movies Based on Their Titles:** Visualisasi ini dapat berupa daftar film dengan rating tertinggi yang disajikan dalam bentuk tabel atau diagram batang horizontal. Hal ini akan membantu Anda mengidentifikasi film-film dengan rating tertinggi dan mungkin memperoleh wawasan tentang apa yang membuat film-film ini begitu populer.
+
+5. **Movie Releases by Year and Month:** Anda dapat membuat visualisasi seperti grafik batang atau garis untuk menggambarkan jumlah rilis film per tahun dan per bulan. Ini akan memberikan pemahaman tentang tren perilisan film dari waktu ke waktu. Mungkin Anda akan menemukan bahwa ada tren tertentu dalam perilisan film yang berkaitan dengan musim atau tahun tertentu.
+   
+Berikut ini adalah hasil visualisasinya <br>
+![rating](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/07503ae5-51e0-4d2b-9500-f77e3adc947a) <br>
+Dapat dilihat dari Gambar visualisasi rata rata rating dengan frekuensi tertinggi dari film berada pada 6 hingga 8 
+![ratingvspop](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/ce56c15c-14ea-49d7-8988-2d88ceba3163) <br>
+Gambar tersebut menunjukkan scatter plot dari peringkat dan popularitas film. Peringkat adalah nilai dari 1 hingga 10 yang diberikan oleh pengguna untuk film tersebut, sedangkan popularitas adalah jumlah pengguna yang telah menonton film tersebut. Dari gambar tersebut, dapat dilihat bahwa terdapat hubungan positif antara peringkat dan popularitas. Artinya, film-film dengan peringkat yang lebih tinggi juga cenderung lebih populer.
+![genres](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/c42eb6d3-f133-46f9-95cf-d7461c4ecba5) <br>
+Pada gambar diatas merupakan distribusi jumlah film berdasarkan genrenya dimana film dengan genre terbanyak adalah drama, comedy, dan action
+![mostpop](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/55bd81aa-1d46-4526-8217-0b763745d88d) <br>
+Dapat dilihat pada gambar diatas film dengan popularitas tertinggi adalah **Spider Man No Way Home** disusul dengan **The Batman** dan **No Exit** 
+![distribution](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/be7b7c73-6164-4ef1-aec6-425065b66e3c) <br>
+![distribution2](https://github.com/Fallennnnnn/movie-recommender/assets/84832657/15f16dfd-4700-4977-87b4-49e14341451b) <br>
+Dapat dilihat pada visualisasi diatas adalah distribusi jumlah film berdasarkan waktu rilisnya dan film terbanyak rilis di tahun 2021 dan untuk bulan rilis teranyak pada bulan 10
+
+Melalui tahapan EDA ini, Anda dapat memahami data dengan lebih baik, mengidentifikasi pola atau hubungan yang mungkin terjadi dalam dataset, dan mendapatkan wawasan awal yang berguna untuk analisis lebih lanjut.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Proses data preparation terkait dengan pengolahan data sebelum data tersebut siap untuk digunakan dalam analisis lebih lanjut. Berikut adalah langkah-langkah yang dilakukan : 
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+1. **Mengecek Data Kosong (Handling Missing Data):** Tahap pertama adalah memeriksa apakah ada data yang kosong (missing values) dalam dataset. Hal ini dilakukan dengan menggunakan perintah seperti `isnull()` atau `isna()` pada setiap kolom untuk mengidentifikasi baris yang memiliki data kosong. Data kosong dapat mengganggu analisis dan perlu diatasi. Pengguna dapat memutuskan apakah akan mengisi data yang kosong atau menghapus baris atau kolom yang memiliki data kosong, tergantung pada konteks dan banyaknya data yang hilang.
 
+2. **Mengecek Duplikat (Handling Duplicate Data):** Setelah mengatasi data kosong, langkah berikutnya adalah memeriksa adanya duplikat dalam dataset. Duplikat dapat mengganggu analisis dan menghasilkan hasil yang bias. Gunakan perintah seperti `duplicated()` untuk mengidentifikasi dan menghapus baris yang merupakan duplikat dari data yang sudah ada.
+
+3. **Mengecek Korelasi (Checking for Correlations):** Selanjutnya, perlu memeriksa korelasi antara variabel-variabel dalam dataset. Ini penting untuk memahami hubungan antara variabel dan mungkin untuk memilih hanya variabel yang paling relevan untuk analisis. Metode statistik seperti korelasi Pearson atau Spearman, serta visualisasi seperti matriks korelasi atau heatmap dapat digunakan.
+
+4. **Drop Kolom Tidak Berguna (Dropping Unnecessary Columns):** Jika ada kolom-kolom dalam dataset yang tidak relevan untuk analisis atau tidak memiliki informasi yang berharga, dapat memutuskan untuk menghapus kolom-kolom ini. Ini akan membantu mengurangi dimensi data dan memudahkan analisis.
+
+5. **Menggunakan Kolom "Genre" yang Dipisahkan oleh '|':** Jika kolom "Genre" dalam dataset berisi daftar genre yang dipisahkan oleh tanda '|', perlu melakukan pemrosesan tambahan untuk memisahkan genre-genre ini menjadi entitas terpisah. Metode seperti `str.split()` dapat digunakan untuk memisahkan genre-genre ini menjadi kolom-kolom baru atau menggabungkannya dengan cara yang sesuai dengan analisis.
+
+6. **Menerapkan Pemrosesan Teks pada Kolom "Overview" untuk Menghasilkan Matriks TF-IDF:** Kolom "Overview" kemungkinan berisi teks deskripsi yang perlu diolah lebih lanjut sebelum dapat digunakan dalam analisis. Salah satu teknik yang umum digunakan adalah pemrosesan teks untuk menghasilkan matriks TF-IDF (Term Frequency-Inverse Document Frequency). Ini akan mengubah teks menjadi representasi numerik yang dapat digunakan dalam analisis data.
+
+Setelah melalui langkah-langkah di atas, data akan siap untuk digunakan dalam analisis selanjutnya. Data preparation adalah langkah penting dalam proses analisis data karena membantu memastikan bahwa data yang digunakan adalah berkualitas dan sesuai dengan tujuan analisis yang dilakukan.
 ## Modeling
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
+Dalam tahap Modeling, akan dijelaskan dua solusi rekomendasi yang digunakan dalam sistem rekomendasi film, yaitu Content-Based Filtering dan Hybrid Recommendations. Selanjutnya, akan disajikan rekomendasi top-10 sebagai output.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
+### Solusi 1: Content-Based Filtering
+
+Solusi pertama adalah Content-Based Filtering, yang merekomendasikan film berdasarkan kesamaan konten atau atribut film dengan film yang telah disukai oleh pengguna. Atribut konten yang digunakan dalam rekomendasi ini adalah berdasarkan deskripsi film (Overview) dan genre film (Genres).
+
+#### Kelebihan Content-Based Filtering:
+- Mampu merekomendasikan film yang memiliki atribut konten serupa dengan film yang telah disukai pengguna.
+- Tidak memerlukan informasi pengguna atau interaksi pengguna-film.
+
+#### Kekurangan Content-Based Filtering:
+- Cenderung membatasi variasi rekomendasi pada jenis film yang serupa dengan yang telah disukai pengguna.
+- Tidak memperhitungkan popularitas atau preferensi umum pengguna.
+
+### Solusi 2: Hybrid Recommendations
+
+Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi Content-Based Filtering dengan rekomendasi berdasarkan popularitas film. Dalam pendekatan ini, mencoba memberikan rekomendasi yang lebih seimbang antara preferensi pengguna dan popularitas film.
+
+#### Kelebihan Hybrid Recommendations:
+- Menggabungkan kelebihan Content-Based Filtering dan rekomendasi berdasarkan popularitas untuk memberikan rekomendasi yang lebih beragam.
+- Dapat mengatasi beberapa kelemahan dari masing-masing pendekatan.
+
+#### Kekurangan Hybrid Recommendations:
+- Memerlukan perhatian khusus dalam menggabungkan hasil dari kedua pendekatan.
+
+### Output: Rekomendasi Top-10
+
+Kedua solusi di atas akan menghasilkan rekomendasi top-10 film berdasarkan preferensi pengguna. Rekomendasi ini akan membantu pengguna menemukan film-film yang mungkin mereka nikmati berdasarkan kesamaan konten dan popularitas.
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
+Berikut ini adalah hasil **_Content-Based Recommendation_** dari Spider-Man: No Way Home
+|    Index   |       Movie Title       |                 Genres                 |
+|:----------:|:-----------------------:|:------------------------------------:|
+|    170     |        Spider-Man       |          Fantasy, Action              |
+|    4057    | Spider-Man Strikes Back | Action, Adventure, Family, Fantasy, TV Movie |
+|    1490    |        Spider-Man       | Science Fiction, Action, Crime, TV Movie |
+|    132     |  The Amazing Spider-Man 2 |  Action, Adventure, Fantasy           |
+|    7939    | Beyond the Ultimate Spin: The Making of 'Spide... | Documentary |
+|    201     |       Spider-Man 3       |   Fantasy, Action, Adventure          |
+|     90     | The Amazing Spider-Man  |   Action, Adventure, Fantasy          |
+|    168     |  Spider-Man: Homecoming  | Action, Adventure, Science Fiction, Drama |
+|    191     | Spider-Man: Into the Spider-Verse | Action, Adventure, Animation, Science Fiction |
+|    144     | Spider-Man: Far From Home | Action, Adventure, Science Fiction    |
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Berikut ini adalah hasil **_Hybrid Recommendation_** dari The Commando
+|   Title            |           Genre                     |
+|:------------------:|:---------------------------------:|
+|  2 Guns            | Action, Comedy, Crime              |
+|  Transit           | Action, Thriller, Crime            |
+|  Max Payne         | Crime, Action, Drama, Thriller     |
+|  The Night of the Hunter | Crime, Drama, Thriller         |
+|  Good People       | Thriller, Crime, Action            |
+|  The International | Action, Thriller, Drama, Crime     |
+|  Now You See Me    | Thriller, Crime                    |
+|  Bad Samaritan     | Thriller, Crime, Horror            |
+|  Commando 2 - The Black Money Trail | Action, Thriller      |
+|  Ghostland         | Horror, Mystery, Thriller          |
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+
+**Presisi (Precision)**:
+
+Presisi mengukur berapa banyak kasus positif yang diprediksi oleh model yang benar. Ini menghitung rasio True Positives (kasus yang benar-benar termasuk dalam kelas positif) terhadap semua prediksi positif yang dibuat.
+
+
+$$\text{Presisi} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
+
+
+**Recall (Sensitivitas atau Tingkat Positif Sejati)**:
+
+Recall mengukur seberapa baik model dapat mengidentifikasi semua kasus positif yang sebenarnya. Ini menghitung rasio True Positives (kasus yang benar-benar termasuk dalam kelas positif) terhadap semua kasus positif yang sebenarnya.
+
+
+$$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
+
 
 **Referensi**
 - Roy, D., Dutta, M. A systematic review and research perspective on recommender systems. J Big Data 9, 59 (2022). (https://doi.org/10.1186/s40537-022-00592-5)
