@@ -260,6 +260,8 @@ Hasil Recall untuk  **_Content-Based Recommendation_** dari Spider-Man: No Way H
 
 Hasil Presisi untuk **_Hybrid Recommendation_** dari The Commando adalah (100%) karena dapat dilihat berdasarkan judul yang sama dan juga genrenya dari hasil diatas bahwa genre dari the commando adalah Action, Crime, Thriller sedangkan film yang sesuai dengan preferensi pengguna (Action, Crime, Thriller) tetapi tidak direkomendasikan tidak ada.
 
+Dari hasil evaluasi ini, dapat disimpulkan bahwa sistem rekomendasi, terutama yang menggunakan pendekatan hybrid, telah berhasil dalam mengidentifikasi film-film yang sesuai dengan preferensi pengguna. Meskipun presisi Hybrid Recommendation sedikit lebih rendah dibandingkan dengan Content-Based Recommendation, recall-nya tinggi, yang berarti sistem berusaha untuk tidak melewatkan film yang relevan dengan preferensi pengguna. Ini mencerminkan keseimbangan antara memberikan rekomendasi yang sesuai dengan preferensi individual dan mengambil keuntungan dari popularitas film.
+
 
 **Referensi**
 - Roy, D., Dutta, M. A systematic review and research perspective on recommender systems. J Big Data 9, 59 (2022). (https://doi.org/10.1186/s40537-022-00592-5)
