@@ -6,12 +6,12 @@
 
 Proyek ini adalah pengembangan sistem rekomendasi film yang bertujuan untuk membantu penonton menemukan film-film yang sesuai dengan preferensi mereka dalam katalog film yang sangat besar dan beragam. Sistem rekomendasi ini akan memanfaatkan data film dari dataset TMDB Movies yang bersumber dari Kaggle. 
 
-Industri film telah mengalami perkembangan yang pesat, dan penonton sekarang memiliki akses ke ribuan film dari berbagai genre, tahun rilis, dan negara. Kemudahan akses ini telah menciptakan tantangan baru dalam menavigasi dan menemukan film-film yang sesuai dengan selera pribadi. 
+Industri film telah mengalami perkembangan yang pesat, dan penonton sekarang memiliki akses ke ribuan film dari berbagai genre, tahun rilis, dan negara. Kemudahan akses ini telah menciptakan tantangan baru dalam menavigasi dan menemukan film-film yang sesuai dengan selera pribadi.(Roy, D., Dutta, M., 2022)
 
 Pengembangan sistem rekomendasi film menjadi penting karena:
-- **Penyederhanaan Pencarian**: Dalam tumpukan besar film, penonton sering kali kesulitan mencari film yang sesuai dengan selera mereka. Sistem rekomendasi dapat memfilter pilihan dan memberikan rekomendasi yang relevan.
-- **Meningkatkan Kepuasan**: Rekomendasi yang akurat dapat meningkatkan pengalaman menonton film dan membuat penonton lebih puas dengan pilihan mereka.
-- **Dukungan bagi Industri Film**: Film-film yang lebih kecil atau kurang dikenal juga dapat mendapatkan perhatian lebih dengan bantuan rekomendasi, yang mendukung pertumbuhan industri film secara keseluruhan.
+- **Penyederhanaan Pencarian**: Dalam tumpukan besar film, penonton sering kali kesulitan mencari film yang sesuai dengan selera mereka. Sistem rekomendasi dapat memfilter pilihan dan memberikan rekomendasi yang relevan. 
+- **Meningkatkan Kepuasan**: Rekomendasi yang akurat dapat meningkatkan pengalaman menonton film dan membuat penonton lebih puas dengan pilihan mereka. 
+- **Dukungan bagi Industri Film**: Film-film yang lebih kecil atau kurang dikenal juga dapat mendapatkan perhatian lebih dengan bantuan rekomendasi, yang mendukung pertumbuhan industri film secara keseluruhan. (Jayalakshmi S, Ganesh N, Čep R, Senthil Murugan J., 2022)
 
 ## Business Understanding
 
@@ -124,12 +124,18 @@ Proses data preparation terkait dengan pengolahan data sebelum data tersebut sia
 6. **Menerapkan Pemrosesan Teks pada Kolom "Overview" untuk Menghasilkan Matriks TF-IDF:** Kolom "Overview" kemungkinan berisi teks deskripsi yang perlu diolah lebih lanjut sebelum dapat digunakan dalam analisis. Salah satu teknik yang umum digunakan adalah pemrosesan teks untuk menghasilkan matriks TF-IDF (Term Frequency-Inverse Document Frequency). Ini akan mengubah teks menjadi representasi numerik yang dapat digunakan dalam analisis data.
 
 Setelah melalui langkah-langkah di atas, data akan siap untuk digunakan dalam analisis selanjutnya. Data preparation adalah langkah penting dalam proses analisis data karena membantu memastikan bahwa data yang digunakan adalah berkualitas dan sesuai dengan tujuan analisis yang dilakukan.
+
 ## Modeling
-Dalam tahap Modeling, akan dijelaskan dua solusi rekomendasi yang digunakan dalam sistem rekomendasi film, yaitu Content-Based Filtering dan Hybrid Recommendations. Selanjutnya, akan disajikan rekomendasi top-10 sebagai output.
+Dalam tahap Modeling, akan dijelaskan dua solusi rekomendasi yang digunakan dalam sistem rekomendasi film, yaitu Content-Based Filtering dan Hybrid Recommendations.
 
 ### Solusi 1: Content-Based Filtering
 
-Solusi pertama adalah Content-Based Filtering, yang merekomendasikan film berdasarkan kesamaan konten atau atribut film dengan film yang telah disukai oleh pengguna. Atribut konten yang digunakan dalam rekomendasi ini adalah berdasarkan deskripsi film (Overview) dan genre film (Genres).
+Solusi pertama adalah Content-Based Filtering, yang mengoperasikan rekomendasi berdasarkan kesamaan konten atau atribut film dengan film yang telah disukai oleh pengguna. Atribut konten yang digunakan dalam rekomendasi ini meliputi deskripsi film (Overview) dan genre film (Genres).
+
+#### Cara Kerja Content-Based Filtering:
+- Algoritma Content-Based Filtering menganalisis deskripsi film (Overview) dan genre film (Genres) yang telah disukai oleh pengguna.
+- Selanjutnya, algoritma akan mencari film-film lain dalam dataset yang memiliki atribut konten serupa, seperti deskripsi atau genre yang mirip dengan film yang disukai oleh pengguna.
+- Berdasarkan kesamaan ini, algoritma akan memberikan rekomendasi film yang memiliki atribut konten serupa dengan film yang telah disukai pengguna.
 
 #### Kelebihan Content-Based Filtering:
 - Mampu merekomendasikan film yang memiliki atribut konten serupa dengan film yang telah disukai pengguna.
@@ -141,7 +147,13 @@ Solusi pertama adalah Content-Based Filtering, yang merekomendasikan film berdas
 
 ### Solusi 2: Hybrid Recommendations
 
-Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi Content-Based Filtering dengan rekomendasi berdasarkan popularitas film. Dalam pendekatan ini, mencoba memberikan rekomendasi yang lebih seimbang antara preferensi pengguna dan popularitas film.
+Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi Content-Based Filtering dengan rekomendasi berdasarkan popularitas film. Dalam pendekatan ini, upaya dilakukan untuk memberikan rekomendasi yang lebih seimbang antara preferensi pengguna dan popularitas film.
+
+#### Cara Kerja Hybrid Recommendations:
+- Algoritma Hybrid Recommendations menggabungkan hasil dari Content-Based Filtering dan rekomendasi berdasarkan popularitas film.
+- Rekomendasi Content-Based Filtering digunakan untuk memberikan film-film dengan atribut konten serupa dengan yang telah disukai pengguna.
+- Rekomendasi berdasarkan popularitas film ditambahkan untuk memastikan bahwa film yang populer atau tren saat itu juga mendapatkan perhatian.
+- Hasil akhir adalah rekomendasi yang lebih beragam, mencoba memenuhi preferensi individual pengguna sambil mempertimbangkan popularitas film.
 
 #### Kelebihan Hybrid Recommendations:
 - Menggabungkan kelebihan Content-Based Filtering dan rekomendasi berdasarkan popularitas untuk memberikan rekomendasi yang lebih beragam.
@@ -150,11 +162,11 @@ Solusi kedua adalah Hybrid Recommendations, yang menggabungkan rekomendasi Conte
 #### Kekurangan Hybrid Recommendations:
 - Memerlukan perhatian khusus dalam menggabungkan hasil dari kedua pendekatan.
 
+  
 ### Output: Rekomendasi Top-10
 
 Kedua solusi di atas akan menghasilkan rekomendasi top-10 film berdasarkan preferensi pengguna. Rekomendasi ini akan membantu pengguna menemukan film-film yang mungkin mereka nikmati berdasarkan kesamaan konten dan popularitas.
 
-## Evaluation
 Berikut ini adalah hasil **_Content-Based Recommendation_** dari Spider-Man: No Way Home
 |    Index   |       Movie Title       |                 Genres                 |
 |:----------:|:-----------------------:|:------------------------------------:|
@@ -183,6 +195,7 @@ Berikut ini adalah hasil **_Hybrid Recommendation_** dari The Commando
 |  Commando 2 - The Black Money Trail | Action, Thriller      |
 |  Ghostland         | Horror, Mystery, Thriller          |
 
+## Evaluation
 
 **Presisi (Precision)**:
 
@@ -191,6 +204,9 @@ Presisi mengukur berapa banyak kasus positif yang diprediksi oleh model yang ben
 
 $$\text{Presisi} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
 
+Hasil Presisi untuk  **_Content-Based Recommendation_** dari Spider-Man: No Way Home adalah 100% karena dapat dilihat berdasarkan judul yang sama dan juga genrenya dari hasil diatas bahwa seluruh rekomendasi adalah sekuel Spider-Man.
+
+Hasil Presisi untuk **_Hybrid Recommendation_** dari The Commando adalah (70%) karena dapat dilihat berdasarkan judul yang sama dan juga genrenya dari hasil diatas bahwa genre dari the commando adalah Action, Crime, Thriller sedangkan 2 Guns (Tidak memiliki genre Thriller) Good People (Tidak memiliki genre Thriller) Ghostland (Tidak memiliki genre Action dan Crime)
 
 **Recall (Sensitivitas atau Tingkat Positif Sejati)**:
 
@@ -200,10 +216,14 @@ Recall mengukur seberapa baik model dapat mengidentifikasi semua kasus positif y
 $$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 
 
+Hasil Recall untuk  **_Content-Based Recommendation_** dari Spider-Man: No Way Home adalah 100% karena dapat dilihat berdasarkan judul yang sama dan juga genrenya dari hasil diatas bahwa seluruh rekomendasi adalah sekuel Spider-Man.
+
+Hasil Presisi untuk **_Hybrid Recommendation_** dari The Commando adalah (100%) karena dapat dilihat berdasarkan judul yang sama dan juga genrenya dari hasil diatas bahwa genre dari the commando adalah Action, Crime, Thriller sedangkan film yang sesuai dengan preferensi pengguna (Action, Crime, Thriller) tetapi tidak direkomendasikan tidak ada.
+
+
 **Referensi**
 - Roy, D., Dutta, M. A systematic review and research perspective on recommender systems. J Big Data 9, 59 (2022). (https://doi.org/10.1186/s40537-022-00592-5)
 - Jayalakshmi S, Ganesh N, Čep R, Senthil Murugan J. Movie Recommender Systems: Concepts, Methods, Challenges, and Future Directions. Sensors (Basel). 2022 Jun 29;22(13):4904. doi: 
   10.3390/s22134904 PMID: 35808398; PMCID: PMC9269752. (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9269752/)
-- S. Malik, “Movie Recommender System using Machine Learning”, EAI Endorsed Trans Creat Tech, vol. 9, no. 3, p. e3, Oct. 2022. (https://publications.eai.eu/index.php/ct/article/view/2712)
 
 **---Ini adalah bagian akhir laporan---**
